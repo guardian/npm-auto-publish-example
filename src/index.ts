@@ -22,3 +22,8 @@ export const superman: Character = {
   name: "superman",
   power: "strength",
 };
+
+export const storm: Character = {
+  name: "storm",
+  power: "controlling lightning",
+};
