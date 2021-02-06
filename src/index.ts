@@ -17,3 +17,8 @@ export const nhs: Character = {
   name: "nhs",
   power: "caring for and healing others",
 };
+
+export const superman: Character = {
+  name: "superman",
+  power: "strength",
+};
