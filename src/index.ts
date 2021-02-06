@@ -14,7 +14,7 @@ export const thor: Character = {
 };
 
 export const nhs: Character = {
-  name: "nhs",
+  name: "NHS",
   power: "caring for and healing others",
 };
 
