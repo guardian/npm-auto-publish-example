@@ -12,3 +12,8 @@ export const thor: Character = {
   name: "thor",
   power: "god of lightning",
 };
+
+export const nhs: Character = {
+  name: "nhs",
+  power: "caring for and healing others",
+};
