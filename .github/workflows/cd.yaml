@@ -1,0 +1,22 @@
+name: CD
+on:
+  push:
+    branches:
+      - main
+jobs:
+  CD:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.15.4]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2.1.4
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: CD
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: ./script/cd
