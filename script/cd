@@ -7,5 +7,20 @@ npm run lint
 npm run build
 npm run release
 
-cat package.json
-git diff
+# semantic-release has bumped the version number
+NEXT_VERSION=$(jq -r '.version' < package.json)
+NEXT_VERSION_BRANCH="release-$NEXT_VERSION"
+MESSAGE="chore: $NEXT_VERSION"
+
+# create new branch
+git checkout -b "$NEXT_VERSION_BRANCH"
+
+# add changes
+git add package.json git add package-lock.json
+git commit -m "$MESSAGE"
+
+# push branch
+git push -u origin "$NEXT_VERSION_BRANCH"
+
+# raise PR
+gh pr create --title "$MESSAGE" --body "ensure repository version matches reality"
