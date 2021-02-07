@@ -11,11 +11,12 @@ jobs:
         node-version: [14.15.4]
     steps:
       - uses: actions/checkout@v2
+        with:
+          ssh-key: ${{ secrets.CI_SSH }}
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2.1.4
         with:
           node-version: ${{ matrix.node-version }}
-          ssh-key: ${{ secrets.CI_SSH }}
       - name: CD
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
