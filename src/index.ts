@@ -13,6 +13,7 @@ export const spiderman: Character = {
 export const thor: Character = {
   name: "thor",
   power: "god of lightning",
+  universe: "marvel",
 };
 
 export const nhs: Character = {
