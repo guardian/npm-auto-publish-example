@@ -24,6 +24,7 @@ export const nhs: Character = {
 export const superman: Character = {
   name: "superman",
   power: "strength",
+  universe: "dc",
 };
 
 export const storm: Character = {
