@@ -8,8 +8,8 @@ npm run build
 npm run release
 
 if [[ -z $(git diff --quiet) ]]; then
-  GIT_EMAIL="support+actions@github.com"
-  GIT_USERNAME="github-actions-bot"
+  GIT_EMAIL="guardian.ci@users.noreply.github.com"
+  GIT_USERNAME="guardian.ci-bot"
 
   git config --global user.email "$GIT_EMAIL"
   git config --global user.name "$GIT_USERNAME"
