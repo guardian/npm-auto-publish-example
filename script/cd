@@ -13,6 +13,7 @@ if [[ -z $(git diff --quiet) ]]; then
 
   git config --global user.email "$GIT_EMAIL"
   git config --global user.name "$GIT_USERNAME"
+  git remote set-url origin "https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 
   # semantic-release has bumped the version number
   NEXT_VERSION=$(jq -r '.version' < package.json)
