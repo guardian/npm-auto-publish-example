@@ -1,11 +1,13 @@
 export interface Character {
   name: string;
   power: string;
+  universe?: string;
 }
 
 export const spiderman: Character = {
   name: "spiderman",
   power: "spins a web like a spider can",
+  universe: "marvel",
 };
 
 export const thor: Character = {
