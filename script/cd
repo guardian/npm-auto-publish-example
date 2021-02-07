@@ -6,3 +6,6 @@ npm ci
 npm run lint
 npm run build
 npm run release
+
+cat package.json
+git diff
