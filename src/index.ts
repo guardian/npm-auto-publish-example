@@ -26,9 +26,3 @@ export const superman: Character = {
   power: "strength",
   universe: "dc",
 };
-
-export const storm: Character = {
-  name: "storm",
-  power: "controlling lightning",
-  universe: "marvel",
-};
