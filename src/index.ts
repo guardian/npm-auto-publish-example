@@ -20,3 +20,9 @@ export const superman: Character = {
   power: "strength",
   universe: "dc",
 };
+
+export const batman: Character = {
+  name: "batman",
+  power: "gadgets",
+  universe: "dc",
+};
