@@ -8,6 +8,9 @@ npm run build
 npm run release
 
 if [[ -z $(git diff --quiet) ]]; then
+  git config --global user.email "support+actions@github.com"
+  git config --global user.name "github-actions-bot"
+
   # semantic-release has bumped the version number
   NEXT_VERSION=$(jq -r '.version' < package.json)
   NEXT_VERSION_BRANCH="release-$NEXT_VERSION"
