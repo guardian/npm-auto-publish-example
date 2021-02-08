@@ -5,7 +5,7 @@ set -e
 BRANCH_PREFIX="release"
 
 if git show -s --format=%s | grep -q "^Merge pull request #[0-9][0-9]* from guardian/$BRANCH_PREFIX-[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*$"; then
-  echo "Latest commit was the merge of a release chore. No action further needed."
+  echo "Latest commit was the merge of a release chore. No further action needed."
   exit 0
 fi
 
