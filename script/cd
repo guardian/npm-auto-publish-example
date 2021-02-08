@@ -28,6 +28,11 @@ checkForLocalChanges() {
 }
 
 createVersionBumpPullRequest() {
+  # Raises a PR with the changes to package.json and package-lock.json.
+  # This action requires `env.GITHUB_TOKEN` to be a Personal Access Token,
+  # as PRs raised by the default token will not trigger the CI workflow.
+  # See https://github.com/peter-evans/create-pull-request/issues/48
+
   GIT_EMAIL="guardian-ci@users.noreply.github.com"
   GIT_USERNAME="guardian-ci"
 
