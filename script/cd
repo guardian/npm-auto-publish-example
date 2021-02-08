@@ -4,49 +4,56 @@ set -e
 
 BRANCH_PREFIX="release"
 
-if git show -s --format=%s | grep -q "^Merge pull request #[0-9][0-9]* from guardian/$BRANCH_PREFIX-[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*$"; then
-  echo "Latest commit was the merge of a release chore. No further action needed."
-  exit 0
-fi
+parseTriggeringCommit() {
+  if git show -s --format=%s | grep -q "^Merge pull request #[0-9][0-9]* from guardian/$BRANCH_PREFIX-[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*$"; then
+    echo "Latest commit was the merge of a release chore. No further action needed."
+    exit 0
+  fi
+}
 
-npm ci
-npm run lint
-npm run build
-npm run release
+performCD() {
+  npm ci
+  npm run lint
+  npm run build
 
-if git diff --quiet; then
-  echo "New release not created. No further action needed."
-  exit 0
-fi
+  # this script edits package.json and package-lock.json, bumping the version number if necessary
+  npm run release
+}
 
-GIT_EMAIL="guardian-ci@users.noreply.github.com"
-GIT_USERNAME="guardian-ci"
+checkForLocalChanges() {
+  if git diff --quiet; then
+    echo "New release not created. No further action needed."
+    exit 0
+  fi
+}
 
-git config --global user.email "$GIT_EMAIL"
-git config --global user.name "$GIT_USERNAME"
-git remote set-url origin "https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+createVersionBumpPullRequest() {
+  GIT_EMAIL="guardian-ci@users.noreply.github.com"
+  GIT_USERNAME="guardian-ci"
 
-# semantic-release has bumped the version number
-NEXT_VERSION=$(jq -r '.version' < package.json)
-NEXT_VERSION_BRANCH="$BRANCH_PREFIX-$NEXT_VERSION"
-MESSAGE="chore(release): $NEXT_VERSION"
+  git config --global user.email "$GIT_EMAIL"
+  git config --global user.name "$GIT_USERNAME"
+  git remote set-url origin "https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 
-# create new branch
-git checkout -b "$NEXT_VERSION_BRANCH"
+  # get new version from edited package.json file
+  NEXT_VERSION=$(jq -r '.version' < package.json)
+  NEXT_VERSION_BRANCH="$BRANCH_PREFIX-$NEXT_VERSION"
+  MESSAGE="chore(release): $NEXT_VERSION"
 
-# add changes
-git add package.json
-
-if [[ -f "package-lock.json" ]]; then
+  git checkout -b "$NEXT_VERSION_BRANCH"
+  git add package.json
   git add package-lock.json
-elif [[ -f "yarn.lock" ]]; then
-  git add yarn.lock
-fi
+  git commit -m "$MESSAGE"
+  git push -u origin "$NEXT_VERSION_BRANCH"
 
-git commit -m "$MESSAGE"
+  gh pr create --title "$MESSAGE" --body "keeping repository up to date"
+}
 
-# push branch
-git push -u origin "$NEXT_VERSION_BRANCH"
+main() {
+  parseTriggeringCommit
+  performCD
+  checkForLocalChanges
+  createVersionBumpPullRequest
+}
 
-# raise PR
-gh pr create --title "$MESSAGE" --body "keeping repository up to date"
+main
