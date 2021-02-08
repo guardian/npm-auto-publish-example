@@ -2,8 +2,16 @@
 
 set -e
 
+npm ci
+npm run lint
+npm run build
+
 PACKAGE_NAME=$(jq -r '.name' < package.json)
 REPO_VERSION=$(jq -r '.version' < package.json)
+
+# If we have just published a new version, it can take a couple of seconds for npm to list it.
+# Perform the version check after the "normal" steps to anticipate this.
+# This also means we get feedback on changes first as the version check is the least important.
 LATEST_VERSION=$(npm show "$PACKAGE_NAME" version)
 
 if [ "$REPO_VERSION" != "$LATEST_VERSION" ]; then
@@ -11,7 +19,3 @@ if [ "$REPO_VERSION" != "$LATEST_VERSION" ]; then
   echo "  Rebase this branch with main or check unmerged PRs to keep a linear history."
   exit 1
 fi
-
-npm ci
-npm run lint
-npm run build
