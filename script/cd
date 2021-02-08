@@ -2,12 +2,19 @@
 
 set -e
 
+BRANCH_PREFIX="release"
+
+if [[ -z $(git show -s --format=%s | grep  -q "^Merge pull request #[0-9][0-9]* from guardian/$BRANCH_PREFIX-[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*$") ]]; then
+  echo "Latest commit was the merge of a release chore. No action needed."
+  exit 0
+fi
+
 npm ci
 npm run lint
 npm run build
 npm run release
 
-if [[ -z $(git diff --quiet) ]]; then
+if [[ -n $(git diff --quiet) ]]; then
   GIT_EMAIL="guardian-ci@users.noreply.github.com"
   GIT_USERNAME="guardian-ci"
 
@@ -17,7 +24,7 @@ if [[ -z $(git diff --quiet) ]]; then
 
   # semantic-release has bumped the version number
   NEXT_VERSION=$(jq -r '.version' < package.json)
-  NEXT_VERSION_BRANCH="release-$NEXT_VERSION"
+  NEXT_VERSION_BRANCH="$BRANCH_PREFIX-$NEXT_VERSION"
   MESSAGE="chore(release): $NEXT_VERSION"
 
   # create new branch
@@ -38,5 +45,5 @@ if [[ -z $(git diff --quiet) ]]; then
   git push -u origin "$NEXT_VERSION_BRANCH"
 
   # raise PR
-  gh pr create --title "$MESSAGE [skip ci]" --body "keeping repository up to date"
+  gh pr create --title "$MESSAGE" --body "keeping repository up to date"
 fi
