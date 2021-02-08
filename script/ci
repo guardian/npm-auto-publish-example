@@ -2,6 +2,16 @@
 
 set -e
 
+PACKAGE_NAME=$(jq -r '.name' < package.json)
+REPO_VERSION=$(jq -r '.version' < package.json)
+LATEST_VERSION=$(npm show "$PACKAGE_NAME" version)
+
+if [ "$REPO_VERSION" != "$LATEST_VERSION" ]; then
+  echo "Version mismatch! The version number on this branch does not match the latest published version."
+  echo "  Rebase this branch with main or check unmerged PRs to keep a linear history."
+  exit 1
+fi
+
 npm ci
 npm run lint
 npm run build
