@@ -26,3 +26,9 @@ export const batman: Character = {
   power: "gadgets",
   universe: "dc",
 };
+
+export const beyonce: Character = {
+  name: "beyoncé",
+  power: "being beyoncé",
+  universe: "beehive",
+};
