@@ -1,7 +1,7 @@
 {
   "name": "@guardian/simple-ts-test",
   "version": "1.6.9",
-  "description": "A simple module to test the publication of a TS based project.",
+  "description": "A simple module to test the publication of a TS based project",
   "repository": "github:guardian/simple-ts-test",
   "main": "lib/index.js",
   "files": [
