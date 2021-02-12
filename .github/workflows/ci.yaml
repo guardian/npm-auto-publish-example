@@ -21,4 +21,4 @@ jobs:
       - name: Validate and approve release PRs
         uses: guardian/release-action@main
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.CI_TOKEN }}
