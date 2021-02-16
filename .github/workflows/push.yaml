@@ -21,3 +21,4 @@ jobs:
         uses: guardian/release-action@main
         with:
           github-token: ${{ secrets.CI_TOKEN }}
+          test-token: ${{ secrets.TEST_TOKEN }}
