@@ -20,45 +20,9 @@ performCD() {
   npm run release
 }
 
-checkForLocalChanges() {
-  if git diff --quiet; then
-    echo "New release not created. No further action needed."
-    exit 0
-  fi
-}
-
-createVersionBumpPullRequest() {
-  # Raises a PR with the changes to package.json and package-lock.json.
-  # This action requires `env.GITHUB_TOKEN` to be a Personal Access Token,
-  # as PRs raised by the default token will not trigger the CI workflow.
-  # See https://github.com/peter-evans/create-pull-request/issues/48
-
-  GIT_EMAIL="guardian-ci@users.noreply.github.com"
-  GIT_USERNAME="guardian-ci"
-
-  git config --global user.email "$GIT_EMAIL"
-  git config --global user.name "$GIT_USERNAME"
-  git remote set-url origin "https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
-
-  # get new version from edited package.json file
-  NEXT_VERSION=$(jq -r '.version' < package.json)
-  NEXT_VERSION_BRANCH="$BRANCH_PREFIX-$NEXT_VERSION"
-  MESSAGE="chore(release): $NEXT_VERSION"
-
-  git checkout -b "$NEXT_VERSION_BRANCH"
-  git add package.json
-  git add package-lock.json
-  git commit -m "$MESSAGE"
-  git push -u origin "$NEXT_VERSION_BRANCH"
-
-  gh pr create --title "$MESSAGE" --body "keeping repository up to date"
-}
-
 main() {
   parseTriggeringCommit
   performCD
-  checkForLocalChanges
-  createVersionBumpPullRequest
 }
 
 main
