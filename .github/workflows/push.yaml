@@ -20,5 +20,4 @@ jobs:
       - name: Validate and open PR
         uses: guardian/release-action@main
         with:
-          github-token: ${{ secrets.CI_TOKEN }}
-          test-token: ${{ secrets.TEST_TOKEN }}
+          github-token: ${{ secrets.CI_TOKEN_2 }}
