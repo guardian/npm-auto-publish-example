@@ -9,9 +9,16 @@ jobs:
       matrix:
         node-version: [14.15.4]
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2.1.4
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: ./script/ci
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2.1.4
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: ./script/ci
+  approve:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate and approve release PRs
+        uses: guardian/release-action@main
+        with:
+          github-token: ${{ secrets.CI_TOKEN }}
