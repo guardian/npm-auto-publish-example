@@ -22,3 +22,11 @@ jobs:
         uses: guardian/release-action@main
         with:
           github-token: ${{ secrets.CI_TOKEN }}
+  automerge:
+    needs: [ci, approve]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate and merge version bump PRs
+        uses: guardian/release-action@main
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
