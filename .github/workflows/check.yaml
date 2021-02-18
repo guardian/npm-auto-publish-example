@@ -1,8 +1,6 @@
 name: Check
 on:
-  check_suite:
-    types:
-      - completed
+  status: {}
 jobs:
   check:
     runs-on: ubuntu-latest
