@@ -27,7 +27,7 @@ keepLinearHistory() {
 
 main() {
   performCI
-  keepLinearHistory
+  # keepLinearHistory
 }
 
 main
