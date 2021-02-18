@@ -15,18 +15,11 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: ./script/ci
-  approve:
+  approveAndMerge:
     runs-on: ubuntu-latest
+    needs: [ci]
     steps:
-      - name: Validate and approve release PRs
+      - name: Validate, approve and merge release PRs
         uses: guardian/release-action@main
         with:
           github-token: ${{ secrets.CI_TOKEN }}
-  automerge:
-    needs: [ci, approve]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Validate and merge version bump PRs
-        uses: guardian/release-action@main
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
