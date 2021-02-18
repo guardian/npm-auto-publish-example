@@ -1,1 +1,1 @@
-export const letters = ["a"];
+export const letters = ["a", "b"];
