@@ -24,3 +24,4 @@ jobs:
         with:
           github-token: ${{ secrets.CI_TOKEN }}
           pr-author: jamie-lynch
+          package-manager: yarn
