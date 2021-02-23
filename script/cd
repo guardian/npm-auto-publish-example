@@ -2,27 +2,9 @@
 
 set -e
 
-BRANCH_PREFIX="release"
+npm ci
+npm run build
 
-parseTriggeringCommit() {
-  if git show -s --format=%s | grep -q "^Merge pull request #[0-9][0-9]* from guardian/$BRANCH_PREFIX-[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*$"; then
-    echo "Latest commit was the merge of a release chore. No further action needed."
-    exit 0
-  fi
-}
+# this script edits package.json and package-lock.json, bumping the version number if necessary
+npm run release
 
-performCD() {
-  npm ci
-  npm run lint
-  npm run build
-
-  # this script edits package.json and package-lock.json, bumping the version number if necessary
-  npm run release
-}
-
-main() {
-  parseTriggeringCommit
-  performCD
-}
-
-main
