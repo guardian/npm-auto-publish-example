@@ -26,3 +26,4 @@ jobs:
         uses: guardian/post-release-action@main
         with:
           github-token: ${{ secrets.CI_TOKEN_2 }}
+          pr-author: jamie-lynch
