@@ -20,6 +20,8 @@ jobs:
     needs: [ci]
     steps:
       - name: Validate, approve and merge release PRs
-        uses: guardian/post-release-action@main
+        uses: guardian/post-release-action@jl/config-options
         with:
           github-token: ${{ secrets.CI_TOKEN }}
+          pr-author: jamie-lynch
+          pr-prefix: "chore(tada):"
