@@ -23,6 +23,6 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: ./script/cd
       - name: Post-release
-        uses: guardian/release-action@main
+        uses: guardian/post-release-action@main
         with:
           github-token: ${{ secrets.CI_TOKEN_2 }}

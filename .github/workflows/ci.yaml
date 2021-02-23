@@ -20,6 +20,6 @@ jobs:
     needs: [ci]
     steps:
       - name: Validate, approve and merge release PRs
-        uses: guardian/release-action@main
+        uses: guardian/post-release-action@main
         with:
           github-token: ${{ secrets.CI_TOKEN }}
