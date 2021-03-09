@@ -25,4 +25,4 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           package-manager: yarn
           pr-author: jamie-lynch
-          additional-changes: '{"src/letters.ts": ["+ i"]}'
+          additional-changes: '{"src/letters.ts": ["+ i", "- i"]}'
