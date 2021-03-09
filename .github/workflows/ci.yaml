@@ -20,7 +20,7 @@ jobs:
     needs: [ci]
     steps:
       - name: Validate, approve and merge release PRs
-        uses: guardian/actions-merge-release-changes-to-protected-branch@main
+        uses: guardian/actions-merge-release-changes-to-protected-branch@add-additional-changes-option
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           pr-author: jamie-lynch
