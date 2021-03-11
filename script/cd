@@ -2,9 +2,9 @@
 
 set -e
 
-npm ci
-npm run build
+yarn --frozen-lockfile
+yarn build
 
 # this script edits package.json and package-lock.json, bumping the version number if necessary
-npm run release
+yarn release
 
