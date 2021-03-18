@@ -9,3 +9,5 @@ This repository is used to test the [actions-merge-release-changes-to-protected-
 ## Additional Changes
 
 The `additional-changes` input allows the users to provide configuration denoting extra changes that are expected during the release (e.g. a `CHANGELOG` file). The [additional-changes-example](https://github.com/guardian/simple-ts-test/tree/additional-changes-example) branch shows an example of this configuraiton option in action. [PR #96](https://github.com/guardian/simple-ts-test/pull/96) shows an example PR being automatically approved and merged which contains these additional changes.
+
+test
