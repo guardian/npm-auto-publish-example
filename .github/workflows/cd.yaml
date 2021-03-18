@@ -6,22 +6,18 @@ on:
 jobs:
   CD:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [14.15.4]
     steps:
       - uses: actions/checkout@v2
         with:
           persist-credentials: false
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2.1.4
-        with:
-          node-version: ${{ matrix.node-version }}
+      - uses: actions/checkout@v2
+      - uses: guardian/actions-setup-node@main
+      - uses: bahmutov/npm-install@v1
       - name: CD
         env:
           GITHUB_TOKEN: ${{ secrets.CI_TOKEN_2 }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: ./script/cd
+        run: yarn release
       - name: Post-release
         uses: guardian/actions-merge-release-changes-to-protected-branch@v1.0.0
         with:
