@@ -19,7 +19,7 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: yarn release
       - name: Post-release
-        uses: guardian/actions-merge-release-changes-to-protected-branch@v1.1.0
+        uses: guardian/actions-merge-release-changes-to-protected-branch@dependabot/npm_and_yarn/vercel/ncc-0.28.3
         with:
           github-token: ${{ secrets.CI_TOKEN_2 }}
           package-manager: yarn
