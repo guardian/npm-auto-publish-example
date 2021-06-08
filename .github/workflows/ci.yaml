@@ -16,7 +16,7 @@ jobs:
     needs: [ci]
     steps:
       - name: Validate, approve and merge release PRs
-        uses: guardian/actions-merge-release-changes-to-protected-branch@bump-actions-libs
+        uses: guardian/actions-merge-release-changes-to-protected-branch@v1.1.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           package-manager: yarn
