@@ -18,7 +18,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@guardian/eslint-config-typescript": "^0.6.0",
+    "@guardian/eslint-config-typescript": "^0.7.0",
     "@types/node": "^16.0.0",
     "eslint": "^7.19.0",
     "prettier": "^2.2.1",
