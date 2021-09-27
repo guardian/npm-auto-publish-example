@@ -12,7 +12,9 @@ jobs:
         with:
           persist-credentials: false
       - uses: guardian/actions-setup-node@main
-      - uses: bahmutov/npm-install@v1
+        with:
+          cache: "yarn"
+      - ryb: yarn install --frozen-lockfile
       - name: CD
         env:
           GITHUB_TOKEN: ${{ secrets.CI_TOKEN_2 }}
