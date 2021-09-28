@@ -10,5 +10,4 @@ jobs:
       - uses: guardian/actions-setup-node@debug-version-decision
         with:
           cache: "yarn"
-      - run: yarn install --frozen-lockfile
-      - run: yarn lint
+      - run: node -v
