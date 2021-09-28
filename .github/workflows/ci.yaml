@@ -7,19 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: guardian/actions-setup-node@main
+      - uses: guardian/actions-setup-node@debug-version-decision
         with:
           cache: "yarn"
       - run: yarn install --frozen-lockfile
       - run: yarn lint
-      - run: yarn build
-  approveAndMerge:
-    runs-on: ubuntu-latest
-    needs: [ci]
-    steps:
-      - name: Validate, approve and merge release PRs
-        uses: guardian/actions-merge-release-changes-to-protected-branch@v1.1.1
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          package-manager: yarn
-          pr-author: jamie-lynch
