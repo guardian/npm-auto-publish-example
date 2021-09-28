@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: guardian/actions-setup-node@debug-version-decision
+      - uses: guardian/actions-setup-node@2.4.0
         with:
           cache: "yarn"
       - run: node -v
